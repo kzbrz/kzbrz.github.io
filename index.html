@@ -56,6 +56,9 @@
             display: flex;
             align-items: center;
             cursor: pointer;
+            padding-right: 10px;
+            color: white;
+            font-weight: bold;
         }
         .bar img {
             margin-left: auto;
@@ -69,6 +72,12 @@
         }
         .bar3 {
             width: 30%;
+        }
+        .bar4 {
+            width: 60%;
+        }
+        .bar5 {
+            width: 40%;
         }
         .modal {
             display: none;
@@ -112,26 +121,37 @@
     <h1 style="text-align: center;">Treehaven Playoff Invitational</h1>
     <div class="chart-container">
         <div class="bar-container">
+            <div class="label">83</div>
+            <div class="bar bar4" onclick="openModal('team4')">
+                <span id="team4Sum" style="margin-left: auto;"></span>
+                <img src="greenhelmet.jfif" alt="Horse">
+            </div>
+        </div>
+        <div class="bar-container">
             <div class="label">85</div>
-            <div class="bar bar1" onclick="openModal()">
-                <img src="redhelmet.jfif" alt="Horse">
+            <div class="bar bar5" onclick="openModal('team5')">
+                <span id="team5Sum" style="margin-left: auto;"></span>
+                <img src="purplehelmet.jfif" alt="Horse">
             </div>
         </div>
         <div class="bar-container">
             <div class="label">87</div>
-            <div class="bar bar1" onclick="openModal()">
+            <div class="bar bar1" onclick="openModal('team1')">
+                <span id="team1Sum" style="margin-left: auto;"></span>
                 <img src="redhelmet.jfif" alt="Horse">
             </div>
         </div>
         <div class="bar-container">
             <div class="label">88</div>
-            <div class="bar bar2" onclick="openModal()">
+            <div class="bar bar2" onclick="openModal('team2')">
+                <span id="team2Sum" style="margin-left: auto;"></span>
                 <img src="yellowhelmet.jfif" alt="Horse">
             </div>
         </div>
         <div class="bar-container">
-            <div class="label">- 89</div>
-            <div class="bar bar3" onclick="openModal()">
+            <div class="label">89</div>
+            <div class="bar bar3" onclick="openModal('team3')">
+                <span id="team3Sum" style="margin-left: auto;"></span>
                 <img src="bluehelmet.jfif" alt="Horse">
             </div>
         </div>
@@ -140,42 +160,137 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <table>
+            <table id="teamTable">
                 <thead>
                     <tr>
                         <th></th>
                         <th>Wild Card</th>
                         <th>Divisional</th>
                         <th>Championship</th>
-                        <th>SuperBowl</th>
-                        
+                        <th>Super Bowl</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>QB1</td><td>0</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>QB2</td><td>0</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>RB1</td><td>0</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>RB2</td><td>0</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>RB3</td><td>0</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>WR1</td><td>0</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>WR2</td><td>0</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>WR3</td><td>0</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>TE1</td><td>0</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>TE2</td><td>0</td><td>-</td><td>-</td><td>-</td></tr>
-
+                    <tr><td>QB1</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                    <tr><td>QB2</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                    <tr><td>RB1</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                    <tr><td>RB2</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                    <tr><td>RB3</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                    <tr><td>WR1</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                    <tr><td>WR2</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                    <tr><td>WR3</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                    <tr><td>TE1</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                    <tr><td>TE2</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 
     <script>
-        function openModal() {
+        const teams = {
+            team1: [
+                { name: 'QB1', scores: [10, 15, 20, 25] },
+                { name: 'QB2', scores: [12, 18, 24, 30] },
+                { name: 'RB1', scores: [5, 10, 15, 20] },
+                { name: 'RB2', scores: [7, 14, 21, 28] },
+                { name: 'RB3', scores: [6, 12, 18, 24] },
+                { name: 'WR1', scores: [8, 12, 18, 22] },
+                { name: 'WR2', scores: [9, 13, 19, 23] },
+                { name: 'WR3', scores: [10, 15, 20, 25] },
+                { name: 'TE1', scores: [6, 9, 12, 15] },
+                { name: 'TE2', scores: [5, 8, 11, 14] }
+            ],
+            team2: [
+                { name: 'QB1', scores: [14, 21, 28, 35] },
+                { name: 'QB2', scores: [16, 24, 32, 40] },
+                { name: 'RB1', scores: [7, 14, 21, 28] },
+                { name: 'RB2', scores: [9, 18, 27, 36] },
+                { name: 'RB3', scores: [8, 16, 24, 32] },
+                { name: 'WR1', scores: [10, 15, 20, 25] },
+                { name: 'WR2', scores: [11, 17, 23, 29] },
+                { name: 'WR3', scores: [12, 18, 24, 30] },
+                { name: 'TE1', scores: [7, 10, 13, 16] },
+                { name: 'TE2', scores: [6, 9, 12, 15] }
+            ],
+            team3: [
+                { name: 'QB1', scores: [18, 27, 36, 45] },
+                { name: 'QB2', scores: [20, 30, 40, 50] },
+                { name: 'RB1', scores: [9, 18, 27, 36] },
+                { name: 'RB2', scores: [11, 22, 33, 44] },
+                { name: 'RB3', scores: [10, 20, 30, 40] },
+                { name: 'WR1', scores: [12, 18, 24, 30] },
+                { name: 'WR2', scores: [13, 19, 25, 31] },
+                { name: 'WR3', scores: [14, 21, 28, 35] },
+                { name: 'TE1', scores: [8, 11, 14, 17] },
+                { name: 'TE2', scores: [7, 10, 13, 16] }
+            ],
+            team4: [
+                { name: 'QB1', scores: [0, 16, 21, 26] },
+                { name: 'QB2', scores: [13, 19, 25, 31] },
+                { name: 'RB1', scores: [6, 11, 16, 21] },
+                { name: 'RB2', scores: [8, 15, 22, 29] },
+                { name: 'RB3', scores: [7, 13, 19, 25] },
+                { name: 'WR1', scores: [9, 14, 19, 24] },
+                { name: 'WR2', scores: [10, 16, 22, 28] },
+                { name: 'WR3', scores: [11, 17, 23, 29] },
+                { name: 'TE1', scores: [7, 10, 13, 16] },
+                { name: 'TE2', scores: [6, 9, 12, 15] }
+            ],
+            team5: [
+                { name: 'QB1', scores: [0, 17, 22, 27] },
+                { name: 'QB2', scores: [14, 20, 26, 32] },
+                { name: 'RB1', scores: [7, 12, 17, 22] },
+                { name: 'RB2', scores: [9, 16, 23, 30] },
+                { name: 'RB3', scores: [8, 14, 20, 26] },
+                { name: 'WR1', scores: [10, 15, 20, 25] },
+                { name: 'WR2', scores: [11, 17, 23, 29] },
+                { name: 'WR3', scores: [12, 18, 24, 30] },
+                { name: 'TE1', scores: [8, 11, 14, 17] },
+                { name: 'TE2', scores: [7, 10, 13, 16] }
+            ]
+        };
+
+        function calculateTeamSum(team) {
+            return team.reduce((sum, player) => sum + player.scores.reduce((a, b) => a + b, 0), 0);
+        }
+
+        function displayTeamSums() {
+            document.getElementById('team1Sum').textContent = calculateTeamSum(teams.team1);
+            document.getElementById('team2Sum').textContent = calculateTeamSum(teams.team2);
+            document.getElementById('team3Sum').textContent = calculateTeamSum(teams.team3);
+            document.getElementById('team4Sum').textContent = calculateTeamSum(teams.team4);
+            document.getElementById('team5Sum').textContent = calculateTeamSum(teams.team5);
+        }
+
+        function openModal(team) {
+            const teamData = teams[team];
+            const tbody = document.querySelector('#teamTable tbody');
+            tbody.innerHTML = ''; // Clear existing rows
+
+            teamData.forEach(player => {
+                const row = document.createElement('tr');
+                const nameCell = document.createElement('td');
+                nameCell.textContent = player.name;
+                row.appendChild(nameCell);
+
+                player.scores.forEach(score => {
+                    const scoreCell = document.createElement('td');
+                    scoreCell.textContent = score === 0 ? '-' : score;
+                    row.appendChild(scoreCell);
+                });
+
+                tbody.appendChild(row);
+            });
+
             document.getElementById('myModal').style.display = 'flex';
         }
 
         function closeModal() {
             document.getElementById('myModal').style.display = 'none';
         }
+
+        // Display team sums on page load
+        window.onload = displayTeamSums;
     </script>
 </body>
 </html>
