@@ -115,6 +115,10 @@
         th {
             background-color: #f2f2f2;
         }
+        .grey-cell {
+            background-color: grey;
+        }
+        
     </style>
 </head>
 <body>
@@ -127,6 +131,7 @@
                 <img src="83S.png" alt="Horse">
             </div>
         </div>
+        <!--
         <div class="bar-container">
             <div class="label">85</div>
             <div class="bar bar5" onclick="openModal('team5')">
@@ -134,6 +139,7 @@
                 <img src="85S.png" alt="Horse">
             </div>
         </div>
+        -->
         <div class="bar-container">
             <div class="label">87</div>
             <div class="bar bar1" onclick="openModal('team1')">
@@ -196,14 +202,14 @@
                 { name: 'Bucky Irving', scores: [0, 0, 0, 0] },
                 { name: 'Justin Jefferson', scores: [0, 0, 0, 0] },
                 { name: 'Puka Nacua', scores: [0, 0, 0, 0] },
-                { name: 'McConkley', scores: [0, 0, 0, 0] },
-                { name: 'Travis Kelce', scores: [0, 0, 0, 0] },
-                { name: 'Laporta', scores: [0, 0, 0, 0] }
+                { name: 'McConkley', scores: [34.7, "", "", ""] },
+                { name: 'Travis Kelce', scores: ["", 0, 0, 0] },
+                { name: 'Laporta', scores: ["", 0, 0, 0] }
             ],
             team2: [
                 { name: 'Josh Allen', scores: [0, 0, 0, 0] },
-                { name: 'Pat Mahomes', scores: [0, 0, 0, 0] },
-                { name: 'Gibbs', scores: [0, 0, 0, 0] },
+                { name: 'Pat Mahomes', scores: ["", 0, 0, 0] },
+                { name: 'Gibbs', scores: ["", 0, 0, 0] },
                 { name: 'Henry', scores: [0, 0, 0, 0] },
                 { name: 'Barkley', scores: [0, 0, 0, 0] },
                 { name: 'Jefferson', scores: [0, 0, 0, 0] },
@@ -214,14 +220,14 @@
             ],
             team3: [
                 { name: 'Josh Allen', scores: [0, 0, 0, 0] },
-                { name: 'Justin Herbert', scores: [0, 0, 0, 0] },
-                { name: 'Gibbs', scores: [0, 0, 0, 0] },
+                { name: 'Justin Herbert', scores: [9.68, "","","" ] },
+                { name: 'Gibbs', scores: ["", 0, 0, 0] },
                 { name: 'Barkley', scores: [0, 0, 0, 0] },
                 { name: 'Henry', scores: [0, 0, 0, 0] },
                 { name: 'Puka Nacua', scores: [0, 0, 0, 0] },
                 { name: 'Justin Jefferson', scores: [0, 0, 0, 0] },
                 { name: 'Evans', scores: [0, 0, 0, 0] },
-                { name: 'Travis Kelce', scores: [0, 0, 0, 0] },
+                { name: 'Travis Kelce', scores: ["", 0, 0, 0] },
                 { name: 'Kraft', scores: [0, 0, 0, 0] }
             ],
             team4: [
@@ -229,12 +235,12 @@
                 { name: 'Mayfield', scores: [0, 0, 0, 0] },
                 { name: 'Dobbins', scores: [0, 0, 0, 0] },
                 { name: 'Kyron Williams', scores: [0, 0, 0, 0] },
-                { name: 'Isaia Pachecko', scores: [0, 0, 0, 0] },
+                { name: 'Isaia Pachecko', scores: ["", 0, 0, 0] },
                 { name: 'Jaylen Reed', scores: [0, 0, 0, 0] },
                 { name: 'AJ Brown', scores: [0, 0, 0, 0] },
                 { name: 'Justin Jefferson', scores: [0, 0, 0, 0] },
                 { name: 'Mark Andrews', scores: [0, 0, 0, 0] },
-                { name: 'Dalton Schultz', scores: [0, 0, 0, 0] }
+                { name: 'Dalton Schultz', scores: [2.6, 0, 0, 0] }
             ],
             team5: [
                 { name: 'QB1', scores: [0, 17, 22, 27] },
@@ -251,8 +257,13 @@
         };
 
         function calculateTeamSum(team) {
-            return team.reduce((sum, player) => sum + player.scores.reduce((a, b) => a + b, 0), 0);
+            return team.reduce((sum, player) => {
+                return sum + player.scores.reduce((a, b) => {
+                    return a + (b === "" ? 0 : b);
+                }, 0);
+            }, 0).toFixed(2);
         }
+
 
         function displayTeamSums() {
             document.getElementById('team1Sum').textContent = calculateTeamSum(teams.team1);
@@ -275,7 +286,13 @@
 
                 player.scores.forEach(score => {
                     const scoreCell = document.createElement('td');
-                    scoreCell.textContent = score === 0 ? '-' : score;
+                    if (score === 0) {
+                        scoreCell.textContent = '-';
+                    } else if (score === "") {
+                        scoreCell.classList.add('grey-cell');
+                    } else {
+                        scoreCell.textContent = score;
+                    }
                     row.appendChild(scoreCell);
                 });
 
