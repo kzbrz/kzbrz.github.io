@@ -24,8 +24,9 @@
             background-size: cover; /* Stretch the background image to cover the entire browser */
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0.3; /* Adjust the opacity to fade the background image */
+            opacity: 0.5; /* Adjust the opacity to fade the background image */
             z-index: -1;
+            filter: grayscale(75%);
         }
         .chart-container {
             width: 100%;
@@ -127,6 +128,7 @@
         }
         .grey-cell {
             background-color: grey;
+            opacity: 0.6;
         }
         .player-bars {
             display: flex;
@@ -275,8 +277,8 @@
                     <div class="player-bar-WR">Jefferson</div>
                     <div class="player-bar-WR">McLaurin</div>
                     <div class="player-bar-WR">Nacua</div>
-                    <div class="player-bar-WR eliminated">Kraft</div>
-                    <div class="player-bar-WR eliminated">Otton</div>
+                    <div class="player-bar-TE eliminated">Kraft</div>
+                    <div class="player-bar-TE eliminated">Otton</div>
                 </div>
             </div>
         </div>
