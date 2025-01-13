@@ -132,41 +132,31 @@
     <div class="chart-container">
         <div class="bar-container">
             <div class="label">83</div>
-            <div class="bar bar4" onclick="openModal('team4')">
+            <div class="bar bar4" onclick="openModal('team4')" id="team4Bar">
                 <span id="team4Sum" style="margin-left: auto;"></span>
                 <img src="83S.png" alt="Horse">
             </div>
 <div class="label2">8 Active</div>
         </div>
-        <!--
-        <div class="bar-container">
-            <div class="label">85</div>
-            <div class="bar bar5" onclick="openModal('team5')">
-                <span id="team5Sum" style="margin-left: auto;"></span>
-                <img src="85S.png" alt="Horse">
-            </div>
-<div class="label2">9 Active</div>
-        </div>
-        -->
         <div class="bar-container">
             <div class="label">87</div>
-            <div class="bar bar1" onclick="openModal('team1')">
+            <div class="bar bar1" onclick="openModal('team1')" id="team1Bar">
                 <span id="team1Sum" style="margin-left: auto;"></span>
                 <img src="87S.png" alt="Horse">
             </div>
-<div class="label2">8 Active</div>
+<div class="label2">9 Active</div>
         </div>
         <div class="bar-container">
             <div class="label">88</div>
-            <div class="bar bar2" onclick="openModal('team2')">
+            <div class="bar bar2" onclick="openModal('team2')" id="team2Bar">
                 <span id="team2Sum" style="margin-left: auto;"></span>
                 <img src="88S.png" alt="Horse">
             </div>
-	<div class="label2">9 Active</div>
+	<div class="label2">8 Active</div>
         </div>
         <div class="bar-container">
             <div class="label">89</div>
-            <div class="bar bar3" onclick="openModal('team3')">
+            <div class="bar bar3" onclick="openModal('team3')" id="team3Bar">
                 <span id="team3Sum" style="margin-left: auto;"></span>
                 <img src="89S.png" alt="Horse">
             </div>
@@ -281,7 +271,23 @@
             document.getElementById('team2Sum').textContent = calculateTeamSum(teams.team2);
             document.getElementById('team3Sum').textContent = calculateTeamSum(teams.team3);
             document.getElementById('team4Sum').textContent = calculateTeamSum(teams.team4);
-            document.getElementById('team5Sum').textContent = calculateTeamSum(teams.team5);
+
+ const teamSums = {
+        team1: parseFloat(calculateTeamSum(teams.team1)),
+        team2: parseFloat(calculateTeamSum(teams.team2)),
+        team3: parseFloat(calculateTeamSum(teams.team3)),
+        team4: parseFloat(calculateTeamSum(teams.team4)),
+    };
+
+    const maxScore = Math.max(...Object.values(teamSums), 1); // Avoid division by zero
+
+
+
+	    document.getElementById('team1Bar').style.width = calculateTeamSum(teams.team1)/maxScore * 80  + '%' ;
+            document.getElementById('team2Bar').style.width = calculateTeamSum(teams.team2)/maxScore * 80  + '%' ;
+            document.getElementById('team3Bar').style.width = calculateTeamSum(teams.team3)/maxScore * 80  + '%' ;
+            document.getElementById('team4Bar').style.width = calculateTeamSum(teams.team4)/maxScore * 80  + '%' ;
+
         }
 
         function openModal(team) {
@@ -316,6 +322,8 @@
         function closeModal() {
             document.getElementById('myModal').style.display = 'none';
         }
+
+
 
         // Display team sums on page load
         window.onload = displayTeamSums;
