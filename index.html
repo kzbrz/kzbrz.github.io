@@ -24,7 +24,7 @@
             background-size: cover; /* Stretch the background image to cover the entire browser */
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0.5; /* Adjust the opacity to fade the background image */
+            opacity: 0.3; /* Adjust the opacity to fade the background image */
             z-index: -1;
         }
         .chart-container {
@@ -39,8 +39,11 @@
         }
         .bar-container {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-start;
             margin: 20px 0;
+           /* border: 1px solid #000;  Add border to bar-container */
+            padding: 10px; /* Add padding to bar-container */
         }
         .label {
             width: 50px;
@@ -49,14 +52,14 @@
             font-weight: bold;
         }
        .label2 {
-            width: 150px
+            width: 150px;
             text-align: left;
             margin-left: 10px;
             font-weight: bold;
         }
         .bar {
             position: relative;
-            background-color: #4CAF50;
+            background-color: #382dcf;
             height: 40px;
             border-radius: 5px;
             display: flex;
@@ -124,6 +127,30 @@
         .grey-cell {
             background-color: grey;
         }
+        .player-bars {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+        }
+        .player-bar-eliminated {
+            background-color: #f84848;
+            height: 20px;
+            margin-top: 2px;
+            width: 100%;
+            border: 1px solid black;
+            border-radius: 5px;
+            text-align: center;
+            color: white;
+        }
+        .player-bar {
+            background-color: #dfdfdf;
+            height: 20px;
+            margin-top: 2px;
+            width: 100%;
+            border: 1px solid black;
+            border-radius: 5px;
+            text-align: center;
+        }
         
     </style>
 </head>
@@ -131,36 +158,82 @@
     <h1 style="text-align: center;">Treehaven Playoff Invitational</h1>
     <div class="chart-container">
         <div class="bar-container">
-            <div class="label">83</div>
+
             <div class="bar bar4" onclick="openModal('team4')" id="team4Bar">
                 <span id="team4Sum" style="margin-left: auto;"></span>
                 <img src="83S.png" alt="Horse">
             </div>
-		<div class="label2">7 Active</div>
+		
+        <div class="player-bars">
+            <div class="player-bar">Allen</div>
+            <div class="player-bar-eliminated">Mayfield</div>
+            <div class="player-bar-eliminated">Dobbins</div>
+            <div class="player-bar">Williams</div>
+            <div class="player-bar">Pachecko</div>
+            <div class="player-bar-eliminated">Reed</div>
+            <div class="player-bar">Brown</div>
+            <div class="player-bar">Jefferson</div>
+            <div class="player-bar">Andrews</div>
+            <div class="player-bar">Schultz</div>
+        </div>
         </div>
         <div class="bar-container">
-            <div class="label">87</div>
+
             <div class="bar bar1" onclick="openModal('team1')" id="team1Bar">
                 <span id="team1Sum" style="margin-left: auto;"></span>
                 <img src="87S.png" alt="Horse">
             </div>
-		<div class="label2">7 Active</div>
+            <div class="player-bars">
+                <div class="player-bar">Allen</div>
+                <div class="player-bar">Jackson</div>
+                <div class="player-bar">Barkley</div>
+                <div class="player-bar-eliminated">Jacobs</div>
+                <div class="player-bar-eliminated">Irving</div>
+                <div class="player-bar">Jefferson</div>
+                <div class="player-bar">Nacua</div>
+                <div class="player-bar-eliminated">McConkley</div>
+                <div class="player-bar">Kelce</div>
+                <div class="player-bar">Laporta</div>
+            </div>
+
         </div>
         <div class="bar-container">
-            <div class="label">88</div>
+
             <div class="bar bar2" onclick="openModal('team2')" id="team2Bar">
                 <span id="team2Sum" style="margin-left: auto;"></span>
                 <img src="88S.png" alt="Horse">
             </div>
-		<div class="label2">8 Active</div>
+            <div class="player-bars">
+                <div class="player-bar">Jefferson</div>
+                <div class="player-bar"></div>
+                <div class="player-bar"></div>
+                <div class="player-bar"></div>
+                <div class="player-bar"></div>
+                <div class="player-bar"></div>
+                <div class="player-bar"></div>
+                <div class="player-bar"></div>
+                <div class="player-bar"></div>
+                <div class="player-bar"></div>
+            </div>
         </div>
         <div class="bar-container">
-            <div class="label">89</div>
+
             <div class="bar bar3" onclick="openModal('team3')" id="team3Bar">
                 <span id="team3Sum" style="margin-left: auto;"></span>
                 <img src="89S.png" alt="Horse">
             </div>
-		<div class="label2">7 Active</div>
+            <div class="player-bars">
+                <div class="player-bar-eliminated"></div>
+                <div class="player-bar-eliminated"></div>
+                <div class="player-bar-eliminated"></div>
+                <div class="player-bar"></div>
+                <div class="player-bar"></div>
+                <div class="player-bar"></div>
+                <div class="player-bar"></div>
+                <div class="player-bar"></div>
+                <div class="player-bar"></div>
+                <div class="player-bar"></div>
+            </div>
         </div>
     </div>
 
@@ -195,6 +268,18 @@
 
     <script>
         const teams = {
+            team4: [
+                { name: 'Josh Allen', scores: [23.48, 0, 0, 0] },
+                { name: 'Mayfield', scores: [16.7, "", "", ""] },
+                { name: 'Dobbins', scores: [2.6, "", "", ""] },
+                { name: 'Kyron Williams', scores: [0, 0, 0, 0] },
+                { name: 'Isaia Pachecko', scores: ["", 0, 0, 0] },
+                { name: 'Jaylen Reed', scores: [8.6,  "", "", ""] },
+                { name: 'AJ Brown', scores: [2, 0, 0, 0] },
+                { name: 'Justin Jefferson', scores: [0, 0, 0, 0] },
+                { name: 'Mark Andrews', scores: [6.2, 0, 0, 0] },
+                { name: 'Dalton Schultz', scores: [5.3, 0, 0, 0] }
+            ],
             team1: [
                 { name: 'Josh Allen', scores: [23.48, 0, 0, 0] },
                 { name: 'Lamar Jackson', scores: [23.1, 0, 0, 0] },
@@ -230,31 +315,9 @@
                 { name: 'Evans', scores: [22.2, "","",""] },
                 { name: 'Travis Kelce', scores: ["", 0, 0, 0] },
                 { name: 'Kraft', scores: [11.1, "", "", ""] }
-            ],
-            team4: [
-                { name: 'Josh Allen', scores: [23.48, 0, 0, 0] },
-                { name: 'Mayfield', scores: [16.7, "", "", ""] },
-                { name: 'Dobbins', scores: [2.6, "", "", ""] },
-                { name: 'Kyron Williams', scores: [0, 0, 0, 0] },
-                { name: 'Isaia Pachecko', scores: ["", 0, 0, 0] },
-                { name: 'Jaylen Reed', scores: [8.6,  "", "", ""] },
-                { name: 'AJ Brown', scores: [2, 0, 0, 0] },
-                { name: 'Justin Jefferson', scores: [0, 0, 0, 0] },
-                { name: 'Mark Andrews', scores: [6.2, 0, 0, 0] },
-                { name: 'Dalton Schultz', scores: [5.3, 0, 0, 0] }
-            ],
-            team5: [
-                { name: 'QB1', scores: [0, 17, 22, 27] },
-                { name: 'QB2', scores: [14, 20, 26, 32] },
-                { name: 'RB1', scores: [7, 12, 17, 22] },
-                { name: 'RB2', scores: [9, 16, 23, 30] },
-                { name: 'RB3', scores: [8, 14, 20, 26] },
-                { name: 'WR1', scores: [10, 15, 20, 25] },
-                { name: 'WR2', scores: [11, 17, 23, 29] },
-                { name: 'WR3', scores: [12, 18, 24, 30] },
-                { name: 'TE1', scores: [8, 11, 14, 17] },
-                { name: 'TE2', scores: [7, 10, 13, 16] }
             ]
+
+          
         };
 
         function calculateTeamSum(team) {
@@ -283,10 +346,10 @@
 
 
 
-	    document.getElementById('team1Bar').style.width = calculateTeamSum(teams.team1)/maxScore * 70  + '%' ;
-            document.getElementById('team2Bar').style.width = calculateTeamSum(teams.team2)/maxScore * 70  + '%' ;
-            document.getElementById('team3Bar').style.width = calculateTeamSum(teams.team3)/maxScore * 70  + '%' ;
-            document.getElementById('team4Bar').style.width = calculateTeamSum(teams.team4)/maxScore * 70  + '%' ;
+	    document.getElementById('team1Bar').style.width = calculateTeamSum(teams.team1)/maxScore * 85  + '%' ;
+            document.getElementById('team2Bar').style.width = calculateTeamSum(teams.team2)/maxScore * 85  + '%' ;
+            document.getElementById('team3Bar').style.width = calculateTeamSum(teams.team3)/maxScore * 85  + '%' ;
+            document.getElementById('team4Bar').style.width = calculateTeamSum(teams.team4)/maxScore * 85  + '%' ;
 
         }
 
