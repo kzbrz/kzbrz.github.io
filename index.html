@@ -31,7 +31,7 @@
             width: 100%;
             max-width: 800px;
             margin: 0 auto;
-            padding: 10px;
+            /*padding: 10px;*/
             background-color: rgba(255, 255, 255, 0.8); /* Optional: Add a semi-transparent background to the chart container */
             border-radius: 10px;
             position: relative;
@@ -194,28 +194,36 @@
             font-size: small;
             opacity: 0.8;
         }
+        .title {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+        }
+        .eliminated {
+            opacity: 0.2;
+        }
         
     </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Treehaven Playoff Invitational</h1>
+    <h1 class="title">Treehaven Playoff Invitational</h1>
     <div class="chart-container">
         <div class="bar-container">
 
             <div class="bar bar4" onclick="openModal('team4')" id="team4Bar">
                 <span id="team4Sum" style="margin-left: auto;"></span>
-                <img src="83S.png" alt="Horse">
+                <img src="83S.png" alt="Horse" >
             </div>
             <div class="player-cols">
                 <div class="player-bars">
                     <div class="player-bar-QB">Allen</div>
-                    <div class="player-bar-eliminated">Mayfield</div>
-                    <div class="player-bar-eliminated">Dobbins</div>
+                    <div class="player-bar-QB eliminated">Mayfield</div>
+                    <div class="player-bar-RB eliminated">Dobbins</div>
                     <div class="player-bar-RB">Williams</div>
                     <div class="player-bar-RB">Pachecko</div>
                 </div>
                 <div class="player-bars">
-                    <div class="player-bar-eliminated">Reed</div>
+                    <div class="player-bar-WR eliminated">Reed</div>
                     <div class="player-bar-WR">Brown</div>
                     <div class="player-bar-WR">Jefferson</div>
                     <div class="player-bar-TE">Andrews</div>
@@ -235,13 +243,13 @@
                     <div class="player-bar-QB">Allen</div>
                     <div class="player-bar-QB">Jackson</div>
                     <div class="player-bar-RB">Barkley</div>
-                    <div class="player-bar-eliminated">Jacobs</div>
-                    <div class="player-bar-eliminated">Irving</div>
+                    <div class="player-bar-RB eliminated">Jacobs</div>
+                    <div class="player-bar-RB eliminated">Irving</div>
                 </div>
                 <div class="player-bars">
                     <div class="player-bar-WR">Jefferson</div>
                     <div class="player-bar-WR">Nacua</div>
-                    <div class="player-bar-eliminated">McConkley</div>
+                    <div class="player-bar-WR eliminated">McConkley</div>
                     <div class="player-bar-TE">Kelce</div>
                     <div class="player-bar-TE">Laporta</div>
                 </div>
@@ -267,8 +275,8 @@
                     <div class="player-bar-WR">Jefferson</div>
                     <div class="player-bar-WR">McLaurin</div>
                     <div class="player-bar-WR">Nacua</div>
-                    <div class="player-bar-eliminated">Kraft</div>
-                    <div class="player-bar-eliminated">Otton</div>
+                    <div class="player-bar-WR eliminated">Kraft</div>
+                    <div class="player-bar-WR eliminated">Otton</div>
                 </div>
             </div>
         </div>
@@ -282,7 +290,7 @@
             <div class="player-cols">
                 <div class="player-bars">
                     <div class="player-bar-QB">Allen</div>
-                    <div class="player-bar-eliminated">Herbert</div>
+                    <div class="player-bar-QB eliminated">Herbert</div>
                     <div class="player-bar-RB">Gibbs</div>
                     <div class="player-bar-RB">Barkley</div>
                     <div class="player-bar-RB">Henry</div>
@@ -290,9 +298,9 @@
                 <div class="player-bars">
                     <div class="player-bar-WR">Nacua</div>
                     <div class="player-bar-WR">Jefferson</div>
-                    <div class="player-bar-eliminated">Evans</div>
+                    <div class="player-bar-WR eliminated">Evans</div>
                     <div class="player-bar-TE">Kelce</div>
-                    <div class="player-bar-eliminated">Kraft</div>
+                    <div class="player-bar-TE eliminated">Kraft</div>
                 </div>
             </div>
         </div>
@@ -304,10 +312,10 @@
             <table id="teamTable">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th ></th>
                         <th>WC</th>
                         <th>Div</th>
-                        <th>Cmp</th>
+                        <th>Chp</th>
                         <th>SB</th>
                     </tr>
                 </thead>
@@ -407,10 +415,10 @@
 
 
 
-	    document.getElementById('team1Bar').style.width = calculateTeamSum(teams.team1)/maxScore * 85  + '%' ;
-            document.getElementById('team2Bar').style.width = calculateTeamSum(teams.team2)/maxScore * 85  + '%' ;
-            document.getElementById('team3Bar').style.width = calculateTeamSum(teams.team3)/maxScore * 85  + '%' ;
-            document.getElementById('team4Bar').style.width = calculateTeamSum(teams.team4)/maxScore * 85  + '%' ;
+	    document.getElementById('team1Bar').style.width = calculateTeamSum(teams.team1)/maxScore * 90  + '%' ;
+            document.getElementById('team2Bar').style.width = calculateTeamSum(teams.team2)/maxScore * 90  + '%' ;
+            document.getElementById('team3Bar').style.width = calculateTeamSum(teams.team3)/maxScore * 90  + '%' ;
+            document.getElementById('team4Bar').style.width = calculateTeamSum(teams.team4)/maxScore * 90  + '%' ;
 
         }
 
