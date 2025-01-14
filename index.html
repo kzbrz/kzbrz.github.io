@@ -109,6 +109,17 @@
             width: 80%;
             max-width: 600px;
         }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .modal-header img {
+            margin-right: 10px;
+            height: 60px;
+            width: 60px;
+            border-radius: 25%;
+        }
         .close {
             float: right;
             font-size: 24px;
@@ -195,6 +206,30 @@
             text-align: center;
             font-size: small;
             opacity: 0.8;
+        }
+        .player-bar-QB2 {
+            background-color: rgba(225, 106, 255, 0.5);
+        }
+        .player-bar-RB2 {
+            background-color: rgba(200, 255, 155, 0.5);
+        }
+        .player-bar-WR2 {
+            background-color: rgba(105, 200, 255, 0.5);
+        }
+        .player-bar-TE2 {
+            background-color: rgba(255, 166, 83, 0.5);
+        }
+        .player-bar-QB3 {
+            background-color: rgba(225, 106, 255, 0.3);
+        }
+        .player-bar-RB3 {
+            background-color: rgba(200, 255, 155, 0.3);
+        }
+        .player-bar-WR3 {
+            background-color: rgba(105, 200, 255, 0.3);
+        }
+        .player-bar-TE3 {
+            background-color: rgba(255, 166, 83, 0.3);
         }
         .title {
             text-align: center;
@@ -311,13 +346,17 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <img src="user.png" alt="User Image" id="userImage">
+                <h2 id="teamName">Team Name</h2>
+            </div>
             <table id="teamTable">
                 <thead>
                     <tr>
                         <th ></th>
                         <th>WC</th>
-                        <th>Div</th>
-                        <th>Chp</th>
+                        <th>Dv</th>
+                        <th>Ch</th>
                         <th>SB</th>
                     </tr>
                 </thead>
@@ -339,60 +378,74 @@
 
     <script>
         const teams = {
-            team4: [
-                { name: 'Josh Allen', scores: [23.48, 0, 0, 0] },
-                { name: 'Mayfield', scores: [16.7, "", "", ""] },
-                { name: 'Dobbins', scores: [2.6, "", "", ""] },
-                { name: 'Kyren Williams', scores: [18.2, 0, 0, 0] },
-                { name: 'Isaia Pachecko', scores: ["", 0, 0, 0] },
-                { name: 'Jaylen Reed', scores: [8.6,  "", "", ""] },
-                { name: 'AJ Brown', scores: [2, 0, 0, 0] },
-                { name: 'Justin Jefferson', scores: [10.8, "", "", ""] },
-                { name: 'Mark Andrews', scores: [6.2, 0, 0, 0] },
-                { name: 'Dalton Schultz', scores: [5.3, 0, 0, 0] }
-            ],
-            team1: [
-                { name: 'Josh Allen', scores: [23.48, 0, 0, 0] },
-                { name: 'Lamar Jackson', scores: [23.1, 0, 0, 0] },
-                { name: 'Saquon Barkley', scores: [14.3, 0, 0, 0] },
-                { name: 'Josh Jacobs', scores: [21.1, "", "", ""] },
-                { name: 'Bucky Irving', scores: [16.3, "", "", ""] },
-                { name: 'Justin Jefferson', scores: [10.8, "", "", ""] },
-                { name: 'Puka Nacua', scores: [10.1, 0, 0, 0] },
-                { name: 'McConkley', scores: [34.7, "", "", ""] },
-                { name: 'Travis Kelce', scores: ["", 0, 0, 0] },
-                { name: 'Laporta', scores: ["", 0, 0, 0] }
-            ],
-            team2: [
-                { name: 'Josh Allen', scores: [23.48, 0, 0, 0] },
-                { name: 'Pat Mahomes', scores: ["", 0, 0, 0] },
-                { name: 'Gibbs', scores: ["", 0, 0, 0] },
-                { name: 'Henry', scores: [30.6, 0, 0, 0] },
-                { name: 'Barkley', scores: [14.3, 0, 0, 0] },
-                { name: 'Jefferson', scores: [10.8, "", "", ""] },
-                { name: 'McLaurin', scores: [21.9, 0, 0, 0] },
-                { name: 'Puka Nacua', scores: [10.1, 0, 0, 0] },
-                { name: 'Kraft', scores: [11.1, "", "", ""] },
-                { name: 'Otton', scores: [6.2, "", "", ""] }
-            ],
-            team3: [
-                { name: 'Josh Allen', scores: [23.48, 0, 0, 0] },
-                { name: 'Justin Herbert', scores: [9.68, "","","" ] },
-                { name: 'Gibbs', scores: ["", 0, 0, 0] },
-                { name: 'Barkley', scores: [14.3, 0, 0, 0] },
-                { name: 'Henry', scores: [30.6, 0, 0, 0] },
-                { name: 'Puka Nacua', scores: [10.1, 0, 0, 0] },
-                { name: 'Justin Jefferson', scores: [10.8, "", "", ""] },
-                { name: 'Evans', scores: [22.2, "","",""] },
-                { name: 'Travis Kelce', scores: ["", 0, 0, 0] },
-                { name: 'Kraft', scores: [11.1, "", "", ""] }
-            ]
-
-          
+            team4: {
+                name: 'Team 83',
+                image: '83S.png',
+                players: [
+                    { name: 'Josh Allen', scores: [23.48, 0, 0, 0] },
+                    { name: 'Mayfield', scores: [16.7, "", "", ""] },
+                    { name: 'Dobbins', scores: [2.6, "", "", ""] },
+                    { name: 'Kyren Williams', scores: [18.2, 0, 0, 0] },
+                    { name: 'Isaia Pachecko', scores: ["", 0, 0, 0] },
+                    { name: 'Jaylen Reed', scores: [8.6,  "", "", ""] },
+                    { name: 'AJ Brown', scores: [2, 0, 0, 0] },
+                    { name: 'Justin Jefferson', scores: [10.8, "", "", ""] },
+                    { name: 'Mark Andrews', scores: [6.2, 0, 0, 0] },
+                    { name: 'Dalton Schultz', scores: [5.3, 0, 0, 0] }
+                ]
+            },
+            team1: {
+                name: 'Team 87',
+                image: '87S.png',
+                    players: [
+                    { name: 'Josh Allen', scores: [23.48, 0, 0, 0] },
+                    { name: 'Lamar Jackson', scores: [23.1, 0, 0, 0] },
+                    { name: 'Saquon Barkley', scores: [14.3, 0, 0, 0] },
+                    { name: 'Josh Jacobs', scores: [21.1, "", "", ""] },
+                    { name: 'Bucky Irving', scores: [16.3, "", "", ""] },
+                    { name: 'Justin Jefferson', scores: [10.8, "", "", ""] },
+                    { name: 'Puka Nacua', scores: [10.1, 0, 0, 0] },
+                    { name: 'McConkley', scores: [34.7, "", "", ""] },
+                    { name: 'Travis Kelce', scores: ["", 0, 0, 0] },
+                    { name: 'Laporta', scores: ["", 0, 0, 0] }
+                ]
+            },
+            team2: {
+                name: 'Team 88',
+                image: '88S.png',
+                players: [
+                    { name: 'Josh Allen', scores: [23.48, 0, 0, 0] },
+                    { name: 'Pat Mahomes', scores: ["", 0, 0, 0] },
+                    { name: 'Gibbs', scores: ["", 0, 0, 0] },
+                    { name: 'Henry', scores: [30.6, 0, 0, 0] },
+                    { name: 'Barkley', scores: [14.3, 0, 0, 0] },
+                    { name: 'Jefferson', scores: [10.8, "", "", ""] },
+                    { name: 'McLaurin', scores: [21.9, 0, 0, 0] },
+                    { name: 'Puka Nacua', scores: [10.1, 0, 0, 0] },
+                    { name: 'Kraft', scores: [11.1, "", "", ""] },
+                    { name: 'Otton', scores: [6.2, "", "", ""] }
+                ]
+            },
+            team3: {
+                name: 'Team X-89',
+                image: '89S.png',
+                players: [
+                    { name: 'Josh Allen', scores: [23.48, 0, 0, 0] },
+                    { name: 'Justin Herbert', scores: [9.68, "","","" ] },
+                    { name: 'Gibbs', scores: ["", 0, 0, 0] },
+                    { name: 'Barkley', scores: [14.3, 0, 0, 0] },
+                    { name: 'Henry', scores: [30.6, 0, 0, 0] },
+                    { name: 'Puka Nacua', scores: [10.1, 0, 0, 0] },
+                    { name: 'Justin Jefferson', scores: [10.8, "", "", ""] },
+                    { name: 'Evans', scores: [22.2, "","",""] },
+                    { name: 'Travis Kelce', scores: ["", 0, 0, 0] },
+                    { name: 'Kraft', scores: [11.1, "", "", ""] }
+                ]
+            }
         };
 
         function calculateTeamSum(team) {
-            return team.reduce((sum, player) => {
+            return team.players.reduce((sum, player) => {
                 return sum + player.scores.reduce((a, b) => {
                     return a + (b === "" ? 0 : b);
                 }, 0);
@@ -405,35 +458,73 @@
             document.getElementById('team2Sum').textContent = calculateTeamSum(teams.team2);
             document.getElementById('team3Sum').textContent = calculateTeamSum(teams.team3);
             document.getElementById('team4Sum').textContent = calculateTeamSum(teams.team4);
+        
+            const teamSums = {
+                    team1: parseFloat(calculateTeamSum(teams.team1)),
+                    team2: parseFloat(calculateTeamSum(teams.team2)),
+                    team3: parseFloat(calculateTeamSum(teams.team3)),
+                    team4: parseFloat(calculateTeamSum(teams.team4))
+            };
 
- const teamSums = {
-        team1: parseFloat(calculateTeamSum(teams.team1)),
-        team2: parseFloat(calculateTeamSum(teams.team2)),
-        team3: parseFloat(calculateTeamSum(teams.team3)),
-        team4: parseFloat(calculateTeamSum(teams.team4)),
-    };
+            const maxScore = Math.max(...Object.values(teamSums), 1); // Avoid division by zero
 
-    const maxScore = Math.max(...Object.values(teamSums), 1); // Avoid division by zero
-
-
-
-	    document.getElementById('team1Bar').style.width = calculateTeamSum(teams.team1)/maxScore * 90  + '%' ;
+	        document.getElementById('team1Bar').style.width = calculateTeamSum(teams.team1)/maxScore * 90  + '%' ;
             document.getElementById('team2Bar').style.width = calculateTeamSum(teams.team2)/maxScore * 90  + '%' ;
             document.getElementById('team3Bar').style.width = calculateTeamSum(teams.team3)/maxScore * 90  + '%' ;
             document.getElementById('team4Bar').style.width = calculateTeamSum(teams.team4)/maxScore * 90  + '%' ;
-
         }
+        
 
-        function openModal(team) {
-            const teamData = teams[team];
+        function openModal(teamKey) {
+            const team = teams[teamKey];
+            document.getElementById('teamName').textContent = team.name;
+            document.getElementById('userImage').src = team.image;
+            document.getElementById('userImage').onclick = function() {
+                const modalImage = document.createElement('img');
+                modalImage.src = team.image;
+                modalImage.style.maxWidth = '90%';
+                modalImage.style.maxHeight = '90%';
+                const imageModal = document.createElement('div');
+                imageModal.style.display = 'flex';
+                imageModal.style.justifyContent = 'center';
+                imageModal.style.alignItems = 'center';
+                imageModal.style.position = 'fixed';
+                imageModal.style.top = '0';
+                imageModal.style.left = '0';
+                imageModal.style.width = '100%';
+                imageModal.style.height = '100%';
+                imageModal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                imageModal.style.zIndex = '3';
+                imageModal.appendChild(modalImage);
+                imageModal.onclick = function() {
+                    document.body.removeChild(imageModal);
+                };
+                document.body.appendChild(imageModal);
+            };
+
             const tbody = document.querySelector('#teamTable tbody');
             tbody.innerHTML = ''; // Clear existing rows
 
-            teamData.forEach(player => {
+            team.players.forEach((player,index) => {
                 const row = document.createElement('tr');
                 const nameCell = document.createElement('td');
                 nameCell.textContent = player.name;
                 row.appendChild(nameCell);
+
+                 // Apply background color based on row index
+                if (index < 2) {
+                    row.classList.add('player-bar-QB3');
+                    nameCell.classList.add('player-bar-QB2');
+                } else if (index < 5) {
+                    row.classList.add('player-bar-RB3');                    
+                    nameCell.classList.add('player-bar-RB2');
+                } else if (index < 8) {
+                    row.classList.add('player-bar-WR3');
+                    nameCell.classList.add('player-bar-WR2');
+                } else {
+                    row.classList.add('player-bar-TE3');
+                    nameCell.classList.add('player-bar-TE2');
+                }
 
                 player.scores.forEach(score => {
                     const scoreCell = document.createElement('td');
@@ -442,7 +533,7 @@
                     } else if (score === "") {
                         scoreCell.classList.add('grey-cell');
                     } else {
-                        scoreCell.textContent = score;
+                        scoreCell.textContent = parseFloat(score).toFixed(1);
                     }
                     row.appendChild(scoreCell);
                 });
@@ -456,8 +547,6 @@
         function closeModal() {
             document.getElementById('myModal').style.display = 'none';
         }
-
-
 
         // Display team sums on page load
         window.onload = displayTeamSums;
