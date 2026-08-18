@@ -1,555 +1,311 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Treehaven Playoff Invitational</title>
+    <title>Sleepover Report Card</title>
     <style>
-        html, body {
-            height: 100%;
+        :root {
+            --bg-color: #fdfbf7;
+            --card-bg: #ffffff;
+            --kendall-accent: #ff70a6;
+            --jordan-accent: #70d6ff;
+            --text-main: #2b2d42;
+            --green-rag: #38b000;
+            --amber-rag: #ffb703;
+            --red-rag: #e63946;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            position: relative;
-            overflow: hidden;
-        }
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("images/JA17s.jpeg");
-            background-size: cover; /* Stretch the background image to cover the entire browser */
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.5; /* Adjust the opacity to fade the background image */
-            z-index: -1;
-            filter: grayscale(75%);
-        }
-        .chart-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            /*padding: 10px;*/
-            background-color: rgba(255, 255, 255, 0.8); /* Optional: Add a semi-transparent background to the chart container */
-            border-radius: 10px;
-            position: relative;
-            z-index: 1;
-        }
-        .bar-container {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin: 10px 0;
-           /* border: 1px solid #000;  Add border to bar-container */
-            padding: 10px; /* Add padding to bar-container */
-        }
-        .label {
-            width: 50px;
-            text-align: right;
-            margin-right: 10px;
-            font-weight: bold;
-        }
-       .label2 {
-            width: 150px;
-            text-align: left;
-            margin-left: 10px;
-            font-weight: bold;
-        }
-        .bar {
-            position: relative;
-            background-color: #382dcf;
-            height: 40px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            padding-right: 10px;
-            color: white;
-            font-weight: bold;
-            opacity: 0.9;
-        }
-        .bar img {
-            margin-left: auto;
-            height: 40px;
-        }/*
-        .bar1 {
-            width: 81%;
-        }
-        .bar2 {
-            width: 54%;
-        }
-        .bar3 {
-            width: 61%;
-        }
-        .bar4 {
-            width: 33%;
-        }
-        .bar5 {
-            width: 40%;
-        }*/
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 2;
-        }
-        .modal-content {
-            background-color: white;
             padding: 20px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 600px;
         }
-        .modal-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .modal-header img {
-            margin-right: 10px;
-            height: 60px;
-            width: 60px;
-            border-radius: 25%;
-        }
-        .close {
-            float: right;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+
+        header {
             text-align: center;
+            margin-bottom: 25px;
         }
-        th {
-            background-color: #f2f2f2;
+
+        h1 {
+            font-size: 2.2rem;
+            margin: 0 0 5px 0;
+            color: #3d348b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .grey-cell {
-            background-color: grey;
-            opacity: 0.6;
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #7678ed;
+            font-weight: 600;
         }
-        .player-bars {
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .person-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            padding: 20px;
+            border-top: 8px solid #ccc;
+        }
+
+        .person-card.kendall { border-top-color: var(--kendall-accent); }
+        .person-card.jordan { border-top-color: var(--jordan-accent); }
+
+        .person-header {
             display: flex;
-            flex-direction: row;
-            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed #eee;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
         }
-        .player-cols {
+
+        .person-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .score-badge {
+            background: #f1f3f5;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .category-list {
             display: flex;
             flex-direction: column;
-            width: 100%;
+            gap: 12px;
         }
-        .player-bar-eliminated {
-            background-color: #f84848;
-            height: 15px;
-            margin-top: 2px;
-            width: 100%;
-            border: 1px solid black;
-            border-radius: 5px;
-            text-align: center;
-            color: white;
-            font-size: small;
-            opacity: 0.2;
-        }
-        .player-bar-QB {
-            background-color: #e16aff;
-            height: 15px;
-            margin-top: 2px;
-            width: 100%;
-            border: 1px solid black;
-            border-radius: 5px;
-            text-align: center;
-            font-size: small;
-            opacity: 0.8;
-        }
-        .player-bar-RB {
-            background-color: #c8ff9b;
-            height: 15px;
-            margin-top: 2px;
-            width: 100%;
-            border: 1px solid black;
-            border-radius: 5px;
-            text-align: center;
-            font-size: small;
-            opacity: 0.8;
-        }
-        .player-bar-WR {
-            background-color: #69c8ff;
-            height: 15px;
-            margin-top: 2px;
-            width: 100%;
-            border: 1px solid black;
-            border-radius: 5px;
-            text-align: center;
-            font-size: small;
-            opacity: 0.8;
-        }
-        .player-bar-TE {
-            background-color: #ffa653;
-            height: 15px;
-            margin-top: 2px;
-            width: 100%;
-            border: 1px solid black;
-            border-radius: 5px;
-            text-align: center;
-            font-size: small;
-            opacity: 0.8;
-        }
-        .player-bar-QB2 {
-            background-color: rgba(225, 106, 255, 0.5);
-        }
-        .player-bar-RB2 {
-            background-color: rgba(200, 255, 155, 0.5);
-        }
-        .player-bar-WR2 {
-            background-color: rgba(105, 200, 255, 0.5);
-        }
-        .player-bar-TE2 {
-            background-color: rgba(255, 166, 83, 0.5);
-        }
-        .player-bar-QB3 {
-            background-color: rgba(225, 106, 255, 0.3);
-        }
-        .player-bar-RB3 {
-            background-color: rgba(200, 255, 155, 0.3);
-        }
-        .player-bar-WR3 {
-            background-color: rgba(105, 200, 255, 0.3);
-        }
-        .player-bar-TE3 {
-            background-color: rgba(255, 166, 83, 0.3);
-        }
-        .title {
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0.8);
+
+        .category-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 12px;
+            align-items: start;
+            padding: 10px;
             border-radius: 10px;
+            background: #fafafa;
         }
-        .eliminated {
-            opacity: 0.2;
+
+        .category-icon {
+            font-size: 1.4rem;
+            line-height: 1;
         }
-        
+
+        .category-details strong {
+            display: block;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+
+        .category-details p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .rag-select {
+            padding: 4px 8px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .rag-green { background-color: #d8f3dc; color: #1b4332; border-color: var(--green-rag); }
+        .rag-amber { background-color: #fff3bf; color: #744210; border-color: var(--amber-rag); }
+        .rag-red { background-color: #ffc9c9; color: #820000; border-color: var(--red-rag); }
+
+        .add-note-section {
+            max-width: 1100px;
+            margin: 30px auto 0 auto;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        input, select, button {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 0.95rem;
+        }
+
+        button {
+            background-color: #3d348b;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #2b2366;
+        }
     </style>
 </head>
 <body>
-    <h1 class="title">Treehaven Playoff Invitational</h1>
-    <div class="chart-container">
-        <div class="bar-container">
 
-            <div class="bar bar4" onclick="openModal('team4')" id="team4Bar">
-                <span id="team4Sum" style="margin-left: auto;"></span>
-                <img src="83S.png" alt="Horse" >
+    <header>
+        <h1>Sleepover Report Card</h1>
+        <div class="subtitle">Evaluation Dashboard</div>
+    </header>
+
+    <div class="container">
+        <!-- Kendall's Card -->
+        <div class="person-card kendall" id="card-kendall">
+            <div class="person-header">
+                <span class="person-name">Kendall</span>
+                <span class="score-badge" id="score-kendall">0 / 10</span>
             </div>
-            <div class="player-cols">
-                <div class="player-bars">
-                    <div class="player-bar-QB">Allen</div>
-                    <div class="player-bar-QB eliminated">Mayfield</div>
-                    <div class="player-bar-RB eliminated">Dobbins</div>
-                    <div class="player-bar-RB eliminated">Williams</div>
-                    <div class="player-bar-RB">Pachecko</div>
-                </div>
-                <div class="player-bars">
-                    <div class="player-bar-WR eliminated">Reed</div>
-                    <div class="player-bar-WR">Brown</div>
-                    <div class="player-bar-WR eliminated">Jefferson</div>
-                    <div class="player-bar-TE eliminated">Andrews</div>
-                    <div class="player-bar-TE eliminated">Schultz</div>
-                </div>
+            <div class="category-list" id="list-kendall">
+                <!-- Items generated via JS -->
             </div>
         </div>
-        <div class="bar-container">
 
-            <div class="bar bar1" onclick="openModal('team1')" id="team1Bar">
-                <span id="team1Sum" style="margin-left: auto;"></span>
-                <img src="87S.png" alt="Horse">
+        <!-- Jordan's Card -->
+        <div class="person-card jordan" id="card-jordan">
+            <div class="person-header">
+                <span class="person-name">Jordan</span>
+                <span class="score-badge" id="score-jordan">0 / 10</span>
             </div>
-
-            <div class="player-cols">
-                <div class="player-bars">
-                    <div class="player-bar-QB">Allen</div>
-                    <div class="player-bar-QB eliminated">Jackson</div>
-                    <div class="player-bar-RB">Barkley</div>
-                    <div class="player-bar-RB eliminated">Jacobs</div>
-                    <div class="player-bar-RB eliminated">Irving</div>
-                </div>
-                <div class="player-bars">
-                    <div class="player-bar-WR eliminated">Jefferson</div>
-                    <div class="player-bar-WR eliminated">Nacua</div>
-                    <div class="player-bar-WR eliminated">McConkley</div>
-                    <div class="player-bar-TE">Kelce</div>
-                    <div class="player-bar-TE eliminated">Laporta</div>
-                </div>
-            </div>
-
-        </div>
-        <div class="bar-container">
-
-            <div class="bar bar2" onclick="openModal('team2')" id="team2Bar">
-                <span id="team2Sum" style="margin-left: auto;"></span>
-                <img src="88S.png" alt="Horse">
-            </div>
-
-            <div class="player-cols">
-                <div class="player-bars">
-                    <div class="player-bar-QB">Allen</div>
-                    <div class="player-bar-QB">Mahomes</div>
-                    <div class="player-bar-RB eliminated">Gibbs</div>
-                    <div class="player-bar-RB eliminated">Henry</div>
-                    <div class="player-bar-RB">Barkley</div>
-                </div>
-                <div class="player-bars">
-                    <div class="player-bar-WR eliminated">Jefferson</div>
-                    <div class="player-bar-WR">McLaurin</div>
-                    <div class="player-bar-WR eliminated">Nacua</div>
-                    <div class="player-bar-TE eliminated">Kraft</div>
-                    <div class="player-bar-TE eliminated">Otton</div>
-                </div>
-            </div>
-        </div>
-        <div class="bar-container">
-
-            <div class="bar bar3" onclick="openModal('team3')" id="team3Bar">
-                <span id="team3Sum" style="margin-left: auto;"></span>
-                <img src="89S.png" alt="Horse">
-            </div>
-
-            <div class="player-cols">
-                <div class="player-bars">
-                    <div class="player-bar-QB">Allen</div>
-                    <div class="player-bar-QB eliminated">Herbert</div>
-                    <div class="player-bar-RB eliminated">Gibbs</div>
-                    <div class="player-bar-RB">Barkley</div>
-                    <div class="player-bar-RB eliminated">Henry</div>
-                </div>
-                <div class="player-bars">
-                    <div class="player-bar-WR eliminated">Nacua</div>
-                    <div class="player-bar-WR eliminated">Jefferson</div>
-                    <div class="player-bar-WR eliminated">Evans</div>
-                    <div class="player-bar-TE">Kelce</div>
-                    <div class="player-bar-TE eliminated">Kraft</div>
-                </div>
+            <div class="category-list" id="list-jordan">
+                <!-- Items generated via JS -->
             </div>
         </div>
     </div>
 
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div class="modal-header">
-                <img src="user.png" alt="User Image" id="userImage">
-                <h2 id="teamName">Team Name</h2>
-            </div>
-            <table id="teamTable">
-                <thead>
-                    <tr>
-                        <th ></th>
-                        <th>WC</th>
-                        <th>Dv</th>
-                        <th>Ch</th>
-                        <th>SB</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>QB1</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>QB2</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>RB1</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>RB2</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>RB3</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>WR1</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>WR2</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>WR3</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>TE1</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-                    <tr><td>TE2</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-                </tbody>
-            </table>
+    <!-- Note Adder -->
+    <div class="add-note-section">
+        <h3>Add or Update a Note</h3>
+        <div class="form-group">
+            <select id="input-person">
+                <option value="kendall">Kendall</option>
+                <option value="jordan">Jordan</option>
+            </select>
+            <input type="text" id="input-category" placeholder="Category Name">
+            <input type="text" id="input-note" placeholder="Details/Notes">
+            <select id="input-rag">
+                <option value="green">Green (Good)</option>
+                <option value="amber">Amber (Okay)</option>
+                <option value="red">Red (Needs Work)</option>
+            </select>
+            <button onclick="addCustomEntry()">Add Note</button>
         </div>
     </div>
 
     <script>
-        const teams = {
-            team4: {
-                name: 'Team 83',
-                image: '83S.png',
-                players: [
-                    { name: 'Josh Allen', scores: [23.48, 7.08, 0, 0] },
-                    { name: 'Mayfield', scores: [16.7, "", "", ""] },
-                    { name: 'Dobbins', scores: [2.6, "", "", ""] },
-                    { name: 'Kyren Williams', scores: [18.2,11.5, "",""] },
-                    { name: 'Isaia Pachecko', scores: ["", 1.8, 0, 0] },
-                    { name: 'Jaylen Reed', scores: [8.6,  "", "", ""] },
-                    { name: 'AJ Brown', scores: [2, 3.4, 0, 0] },
-                    { name: 'Justin Jefferson', scores: [10.8, "", "", ""] },
-                    { name: 'Mark Andrews', scores: [6.2, 11.9,"",""] },
-                    { name: 'Dalton Schultz', scores: [5.3, 10.3, "",""] }
-                ]
-            },
-            team1: {
-                name: 'Team 87',
-                image: '87S.png',
-                    players: [
-                    { name: 'Josh Allen', scores: [23.48, 7.08, 0, 0] },
-                    { name: 'Lamar Jackson', scores: [23.1, 19.06, "",""] },
-                    { name: 'Saquon Barkley', scores: [14.3, 39.2, 0, 0] },
-                    { name: 'Josh Jacobs', scores: [21.1, "", "", ""] },
-                    { name: 'Bucky Irving', scores: [16.3, "", "", ""] },
-                    { name: 'Justin Jefferson', scores: [10.8, "", "", ""] },
-                    { name: 'Puka Nacua', scores: [10.1, 15.7, "",""] },
-                    { name: 'McConkley', scores: [34.7, "", "", ""] },
-                    { name: 'Travis Kelce', scores: ["", 28.2, 0, 0] },
-                    { name: 'Laporta', scores: ["",20.1, "","" ] }
-                ]
-            },
-            team2: {
-                name: 'Team 88',
-                image: '88S.png',
-                players: [
-                    { name: 'Josh Allen', scores: [23.48, 7.08, 0, 0]  },
-                    { name: 'Pat Mahomes', scores: ["", 12.48, 0, 0] },
-                    { name: 'Gibbs', scores: ["",35.5, "",""] },
-                    { name: 'Henry', scores: [30.6, 14.4, "",""] },
-                    { name: 'Barkley', scores: [14.3, 39.2, 0, 0] },
-                    { name: 'Jefferson', scores: [10.8, "", "", ""] },
-                    { name: 'McLaurin', scores: [21.9, 18.7, 0, 0] },
-                    { name: 'Puka Nacua', scores: [10.1, 15.7, "",""] },
-                    { name: 'Kraft', scores: [11.1, "", "", ""] },
-                    { name: 'Otton', scores: [6.2, "", "", ""] }
-                ]
-            },
-            team3: {
-                name: 'Team X-89',
-                image: '89S.png',
-                players: [
-                    { name: 'Josh Allen', scores: [23.48, 7.08, 0, 0]  },
-                    { name: 'Justin Herbert', scores: [9.68, "","","" ] },
-                    { name: 'Gibbs', scores: ["",35.5, "",""] },
-                    { name: 'Barkley', scores: [14.3, 39.2, 0, 0] },
-                    { name: 'Henry', scores: [30.6, 14.4, "",""]  },
-                    { name: 'Puka Nacua', scores: [10.1, 15.7, "",""] },
-                    { name: 'Justin Jefferson', scores: [10.8, "", "", ""] },
-                    { name: 'Evans', scores: [22.2, "","",""] },
-                    { name: 'Travis Kelce', scores: ["", 28.2, 0, 0] },
-                    { name: 'Kraft', scores: [11.1, "", "", ""] }
-                ]
-            }
+        const initialData = {
+            kendall: [
+                { icon: '📋', name: 'Prep Readiness', note: 'No help was offered for setup beforehand (zilch effort).', status: 'red' },
+                { icon: '👋', name: 'Introductions & Hosting', note: 'Introduced guests, offered drinks, and ate a reasonable dinner.', status: 'amber' },
+                { icon: '🎵', name: 'Music Patrol', note: 'Loud music turned down by 10:00 PM and all music off by 11:00 PM cutoff.', status: 'green' },
+                { icon: '🏊‍♂️', name: 'Pool Noise & Volume', note: 'Late-night swimming well past the 12:00 AM screaming cutoff. Pool left without stuff put away.', status: 'red' },
+                { icon: '♨️', name: 'Hot Tub Noise & Volume', note: 'Hot tub used past the 12:30 AM closing cutoff.', status: 'red' },
+                { icon: '🏡', name: 'Respect of Neighbors', note: 'Noise levels and late activity were elevated past cutoffs; room for improvement.', status: 'amber' },
+                { icon: '🌙', name: 'Late-Night Routine', note: 'Failed strict quiet time (2:00 AM cutoff); continuous noise, movement, and coming/going until 6:30 AM.', status: 'red' },
+                { icon: '🥞', name: 'Breakfast', note: 'The whole group woke up and ate breakfast together.', status: 'green' },
+                { icon: '🧹', name: 'Clean-Up Crew', note: 'Mattresses, blankets, and snack debris left behind; chlorine bottle was left out and not put away.', status: 'red' }
+            ],
+            jordan: [
+                { icon: '📋', name: 'Prep Readiness', note: 'Assisted with setup before guests arrived.', status: 'green' },
+                { icon: '👋', name: 'Introductions & Hosting', note: 'Introduced guests, offered drinks, and ate a reasonable dinner.', status: 'amber' },
+                { icon: '🎵', name: 'Music Patrol', note: 'Loud music cut at 10:00 PM; all music off before 11:00 PM deadline. Great DJ control.', status: 'green' },
+                { icon: '🏊‍♂️', name: 'Pool Noise & Volume', note: 'Screaming stopped and noise was kept in check ahead of the 12:00 AM cutoff; pool left without stuff put away.', status: 'green' },
+                { icon: '♨️', name: 'Hot Tub Noise & Volume', note: 'Screaming kept in check and wrapped up within the 12:30 AM cutoff time.', status: 'amber' },
+                { icon: '🏡', name: 'Respect of Neighbors', note: 'Noise control maintained within guideline times (10/11 PM music, 12 AM pool, 12:30 AM hot tub).', status: 'green' },
+                { icon: '🌙', name: 'Late-Night Routine', note: 'Giggling and talking extended past the 2:00 AM quiet time deadline (zero noise rule).', status: 'amber' },
+                { icon: '🥞', name: 'Breakfast', note: 'Guests were not served breakfast by the host in the morning (kitchen empty).', status: 'red' },
+                { icon: '🧹', name: 'Clean-Up Crew', note: 'Mattresses, sleeping bags, and personal gear left scattered in living room; chlorine bottle left out and not put away.', status: 'red' }
+            ]
         };
 
-        function calculateTeamSum(team) {
-            return team.players.reduce((sum, player) => {
-                return sum + player.scores.reduce((a, b) => {
-                    return a + (b === "" ? 0 : b);
-                }, 0);
-            }, 0).toFixed(2);
+        function calculateScore(items) {
+            let points = 0;
+            items.forEach(item => {
+                if (item.status === 'green') points += 2;
+                else if (item.status === 'amber') points += 1;
+            });
+            const maxPoints = items.length * 2;
+            return Math.round((points / maxPoints) * 10);
         }
 
+        function renderCard(person) {
+            const listContainer = document.getElementById(`list-${person}`);
+            const scoreContainer = document.getElementById(`score-${person}`);
+            listContainer.innerHTML = '';
 
-        function displayTeamSums() {
-            document.getElementById('team1Sum').textContent = calculateTeamSum(teams.team1);
-            document.getElementById('team2Sum').textContent = calculateTeamSum(teams.team2);
-            document.getElementById('team3Sum').textContent = calculateTeamSum(teams.team3);
-            document.getElementById('team4Sum').textContent = calculateTeamSum(teams.team4);
-        
-            const teamSums = {
-                    team1: parseFloat(calculateTeamSum(teams.team1)),
-                    team2: parseFloat(calculateTeamSum(teams.team2)),
-                    team3: parseFloat(calculateTeamSum(teams.team3)),
-                    team4: parseFloat(calculateTeamSum(teams.team4))
-            };
-
-            const maxScore = Math.max(...Object.values(teamSums), 1); // Avoid division by zero
-
-	        document.getElementById('team1Bar').style.width = calculateTeamSum(teams.team1)/maxScore * 90  + '%' ;
-            document.getElementById('team2Bar').style.width = calculateTeamSum(teams.team2)/maxScore * 90  + '%' ;
-            document.getElementById('team3Bar').style.width = calculateTeamSum(teams.team3)/maxScore * 90  + '%' ;
-            document.getElementById('team4Bar').style.width = calculateTeamSum(teams.team4)/maxScore * 90  + '%' ;
-        }
-        
-
-        function openModal(teamKey) {
-            const team = teams[teamKey];
-            document.getElementById('teamName').textContent = team.name;
-            document.getElementById('userImage').src = team.image;
-            document.getElementById('userImage').onclick = function() {
-                const modalImage = document.createElement('img');
-                modalImage.src = team.image;
-                modalImage.style.maxWidth = '90%';
-                modalImage.style.maxHeight = '90%';
-                const imageModal = document.createElement('div');
-                imageModal.style.display = 'flex';
-                imageModal.style.justifyContent = 'center';
-                imageModal.style.alignItems = 'center';
-                imageModal.style.position = 'fixed';
-                imageModal.style.top = '0';
-                imageModal.style.left = '0';
-                imageModal.style.width = '100%';
-                imageModal.style.height = '100%';
-                imageModal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-                imageModal.style.zIndex = '3';
-                imageModal.appendChild(modalImage);
-                imageModal.onclick = function() {
-                    document.body.removeChild(imageModal);
-                };
-                document.body.appendChild(imageModal);
-            };
-
-            const tbody = document.querySelector('#teamTable tbody');
-            tbody.innerHTML = ''; // Clear existing rows
-
-            team.players.forEach((player,index) => {
-                const row = document.createElement('tr');
-                const nameCell = document.createElement('td');
-                nameCell.textContent = player.name;
-                row.appendChild(nameCell);
-
-                 // Apply background color based on row index
-                if (index < 2) {
-                    row.classList.add('player-bar-QB3');
-                    nameCell.classList.add('player-bar-QB2');
-                } else if (index < 5) {
-                    row.classList.add('player-bar-RB3');                    
-                    nameCell.classList.add('player-bar-RB2');
-                } else if (index < 8) {
-                    row.classList.add('player-bar-WR3');
-                    nameCell.classList.add('player-bar-WR2');
-                } else {
-                    row.classList.add('player-bar-TE3');
-                    nameCell.classList.add('player-bar-TE2');
-                }
-
-                player.scores.forEach(score => {
-                    const scoreCell = document.createElement('td');
-                    if (score === 0) {
-                        scoreCell.textContent = '-';
-                    } else if (score === "") {
-                        scoreCell.classList.add('grey-cell');
-                    } else {
-                        scoreCell.textContent = parseFloat(score).toFixed(1);
-                    }
-                    row.appendChild(scoreCell);
-                });
-
-                tbody.appendChild(row);
+            initialData[person].forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'category-item';
+                div.innerHTML = `
+                    <span class="category-icon">${item.icon}</span>
+                    <div class="category-details">
+                        <strong>${item.name}</strong>
+                        <p>${item.note}</p>
+                    </div>
+                    <select class="rag-select rag-${item.status}" onchange="updateRAG('${person}', ${index}, this.value)">
+                        <option value="green" ${item.status === 'green' ? 'selected' : ''}>Green</option>
+                        <option value="amber" ${item.status === 'amber' ? 'selected' : ''}>Amber</option>
+                        <option value="red" ${item.status === 'red' ? 'selected' : ''}>Red</option>
+                    </select>
+                `;
+                listContainer.appendChild(div);
             });
 
-            document.getElementById('myModal').style.display = 'flex';
+            scoreContainer.innerText = `${calculateScore(initialData[person])} / 10`;
         }
 
-        function closeModal() {
-            document.getElementById('myModal').style.display = 'none';
+        function updateRAG(person, index, newStatus) {
+            initialData[person][index].status = newStatus;
+            renderCard(person);
         }
 
-        // Display team sums on page load
-        window.onload = displayTeamSums;
+        function addCustomEntry() {
+            const person = document.getElementById('input-person').value;
+            const name = document.getElementById('input-category').value.trim();
+            const note = document.getElementById('input-note').value.trim();
+            const status = document.getElementById('input-rag').value;
+
+            if (!name || !note) {
+                alert('Please fill in both the category name and note.');
+                return;
+            }
+
+            initialData[person].push({ icon: '📝', name, note, status });
+            renderCard(person);
+
+            document.getElementById('input-category').value = '';
+            document.getElementById('input-note').value = '';
+        }
+
+        // Initial Render
+        renderCard('kendall');
+        renderCard('jordan');
     </script>
 </body>
 </html>
