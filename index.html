@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,9 +45,9 @@
 
         .container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
             gap: 20px;
-            max-width: 1100px;
+            max-width: 1150px;
             margin: 0 auto;
         }
 
@@ -95,7 +94,7 @@
             display: grid;
             grid-template-columns: auto 1fr auto;
             gap: 12px;
-            align-items: start;
+            align-items: center;
             padding: 10px;
             border-radius: 10px;
             background: #fafafa;
@@ -118,6 +117,12 @@
             color: #6c757d;
         }
 
+        .category-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
         .rag-select {
             padding: 4px 8px;
             border-radius: 8px;
@@ -125,14 +130,35 @@
             font-weight: bold;
             cursor: pointer;
             outline: none;
+            font-size: 0.85rem;
         }
 
         .rag-green { background-color: #d8f3dc; color: #1b4332; border-color: var(--green-rag); }
         .rag-amber { background-color: #fff3bf; color: #744210; border-color: var(--amber-rag); }
         .rag-red { background-color: #ffc9c9; color: #820000; border-color: var(--red-rag); }
 
+        .appeal-btn {
+            background-color: #f1f3f5;
+            color: #3d348b;
+            border: 1px solid #d0d4dc;
+            padding: 5px 9px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .appeal-btn:hover {
+            background-color: #3d348b;
+            color: white;
+            border-color: #3d348b;
+            transform: scale(1.04);
+        }
+
         .add-note-section {
-            max-width: 1100px;
+            max-width: 1150px;
             margin: 30px auto 0 auto;
             background: var(--card-bg);
             padding: 20px;
@@ -147,11 +173,12 @@
             margin-top: 10px;
         }
 
-        input, select, button {
+        input, select, button, textarea {
             padding: 10px;
             border-radius: 8px;
             border: 1px solid #ccc;
             font-size: 0.95rem;
+            font-family: inherit;
         }
 
         button {
@@ -166,13 +193,173 @@
         button:hover {
             background-color: #2b2366;
         }
+
+        /* Modal Backdrop */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 18, 37, 0.65);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: #ffffff;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 520px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            padding: 25px 30px;
+            position: relative;
+            animation: modalPop 0.25s ease-out;
+            box-sizing: border-box;
+        }
+
+        @keyframes modalPop {
+            from { transform: scale(0.92); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            border-bottom: 2px dashed #eee;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.4rem;
+            color: #3d348b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-header p {
+            margin: 5px 0 0 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .target-badge {
+            display: inline-block;
+            background: #f1f3f5;
+            color: #3d348b;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 8px;
+            margin-top: 4px;
+            font-size: 0.95rem;
+        }
+
+        .modal-form-group {
+            margin-bottom: 14px;
+        }
+
+        .modal-form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .modal-form-group input,
+        .modal-form-group select,
+        .modal-form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* Funny Assessing & Denial Screens */
+        .status-screen {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .progress-box {
+            background: #e9ecef;
+            border-radius: 12px;
+            height: 24px;
+            overflow: hidden;
+            position: relative;
+            margin: 20px 0 10px 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(45deg, #3d348b 25%, #7678ed 25%, #7678ed 50%, #3d348b 50%, #3d348b 75%, #7678ed 75%, #7678ed);
+            background-size: 30px 30px;
+            animation: moveStripes 1s linear infinite;
+            transition: width 0.4s ease;
+        }
+
+        @keyframes moveStripes {
+            0% { background-position: 0 0; }
+            100% { background-position: 30px 0; }
+        }
+
+        .status-text {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #3d348b;
+            min-height: 24px;
+        }
+
+        /* Rubber Stamp Denial Effect */
+        .denied-stamp {
+            display: inline-block;
+            border: 4px dashed #e63946;
+            color: #e63946;
+            font-size: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            padding: 8px 22px;
+            border-radius: 12px;
+            transform: rotate(-7deg);
+            margin: 15px 0;
+            letter-spacing: 2px;
+            animation: stampSlam 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(230, 57, 70, 0.05);
+        }
+
+        @keyframes stampSlam {
+            0% { transform: scale(3) rotate(-25deg); opacity: 0; }
+            100% { transform: scale(1) rotate(-7deg); opacity: 1; }
+        }
+
+        .denial-explanation {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #495057;
+            background: #fff5f5;
+            border-left: 4px solid #e63946;
+            padding: 12px 14px;
+            border-radius: 6px;
+            text-align: left;
+            margin: 15px 0;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Sleepover Report Card</h1>
-        <div class="subtitle">Summer 2026</div>
+        <div class="subtitle">Summer 2026 • Official Record</div>
     </header>
 
     <div class="container">
@@ -218,11 +405,109 @@
         </div>
     </div>
 
+    <!-- Appeal / Challenge Modal -->
+    <div class="modal-overlay" id="appealModal">
+        <div class="modal-card">
+            
+            <!-- 1. The Form State -->
+            <div id="modal-form-view">
+                <div class="modal-header">
+                    <h2>⚖️ Formal Grade Appeal</h2>
+                    <p>Filing an official grievance with the Parental Review Board</p>
+                    <div class="target-badge" id="modal-target-label">Target</div>
+                </div>
+
+                <form id="appealForm" onsubmit="handleAppealSubmit(event)">
+                    <input type="hidden" id="appeal-person">
+                    <input type="hidden" id="appeal-category">
+
+                    <div class="modal-form-group">
+                        <label for="appeal-name">Challenger Name / Defendant:</label>
+                        <input type="text" id="appeal-name" required placeholder="e.g., Kendall, Jordan, Legal Counsel">
+                    </div>
+
+                    <div class="modal-form-group">
+                        <label for="appeal-grade">Demanded New Grade:</label>
+                        <select id="appeal-grade">
+                            <option value="Green">🟢 Green (Total Exoneration)</option>
+                            <option value="Amber">🟡 Amber (Reduced Sentence / Okay)</option>
+                        </select>
+                    </div>
+
+                    <div class="modal-form-group">
+                        <label for="appeal-reason">Sworn Statement & Evidence (Why should this grade be better?):</label>
+                        <textarea id="appeal-reason" required rows="3" placeholder="Provide your justification, alibi, or excuse..."></textarea>
+                    </div>
+
+                    <div class="modal-form-group">
+                        <label for="appeal-bribe">Proposed Settlement / Bribe (Optional):</label>
+                        <select id="appeal-bribe">
+                            <option value="None">None (Standing on pure innocence)</option>
+                            <option value="Dishes">I will empty the dishwasher tomorrow</option>
+                            <option value="Trash">I will take out the trash without asking</option>
+                            <option value="Room">I promise my room is actually clean</option>
+                            <option value="Hug">A very sincere high-five or hug</option>
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" onclick="closeAppealModal()" style="background:#6c757d;">Withdraw Appeal</button>
+                        <button type="submit" id="btn-submit-appeal" style="background:#3d348b;">Submit to Tribunal ⚖️</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 2. Assessing Progress Bar State -->
+            <div id="modal-assessing-view" class="status-screen">
+                <h3 style="color:#3d348b; margin-top:0;">⚖️ Tribunal In Session...</h3>
+                <p style="color:#666; font-size:0.9rem;">Please wait while the Parental Review Board evaluates your case.</p>
+                
+                <div class="progress-box">
+                    <div class="progress-fill" id="appeal-progress-bar"></div>
+                </div>
+
+                <div class="status-text" id="appeal-status-msg">Transmitting appeal to high command...</div>
+            </div>
+
+            <!-- 3. Appeal Denied Funny Screen -->
+            <div id="modal-denied-view" class="status-screen">
+                <div class="denied-stamp">APPEAL DENIED 🚫</div>
+                
+                <h3 style="margin:5px 0 10px 0; color:#2b2d42;">Official Parental Ruling</h3>
+                
+                <div class="denial-explanation" id="denial-reason-text">
+                    "After thorough review of poolside audio telemetry and snack wrappers, the tribunal finds insufficient grounds for grade modification. The original mark stands."
+                </div>
+
+                <p style="font-size:0.85rem; color:#888; margin-bottom:20px;">
+                    <em>*Ruling is final and legally binding under House Rules Section 4.</em>
+                </p>
+
+                <button onclick="closeAppealModal()" style="background:#e63946; width:100%; padding:12px; font-size:1rem;">
+                    Accept Harsh Reality & Close 😔
+                </button>
+            </div>
+
+        </div>
+    </div>
+
     <script>
+        /* =========================================================================
+           GOOGLE FORM CONFIGURATION (Connected to your live Google Form)
+           ========================================================================= */
+        const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScca7AgR5z6TMuihsqKNJbyAL1ZpS6X3vLpPXhvPPSFYwE-1w/formResponse";
+        const GOOGLE_ENTRIES = {
+            person:   "entry.2110939312",  // Person (Kendall / Jordan)
+            category: "entry.1336720102",  // Category Name
+            name:     "entry.842906797",   // Challenger Name
+            grade:    "entry.1344983642",  // Proposed Grade
+            reason:   "entry.851184707"    // Reason / Evidence + Bribe
+        };
+
         const initialData = {
             kendall: [
                 { icon: '📋', name: 'Prep Readiness', note: 'No help was offered for setup beforehand (zilch effort).', status: 'red' },
-                { icon: '👋', name: 'Introductions & Hosting', note: 'Introduced guests, offered drinks, and ate too small a dinner.  Ate only junk food leading to barfing guest.', status: 'amber' },
+                { icon: '👋', name: 'Introductions & Hosting', note: 'Introduced guests, offered drinks, and ate too small a dinner. Ate only junk food leading to barfing guest.', status: 'amber' },
                 { icon: '🎵', name: 'Music Patrol', note: 'Loud music turned down by 10:00 PM. No music used.', status: 'green' },
                 { icon: '🏊‍♂️', name: 'Pool Noise & Volume', note: 'Late-night swimming well past the 12:00 AM screaming cutoff. Pool left without stuff put away.', status: 'red' },
                 { icon: '♨️', name: 'Hot Tub Noise & Volume', note: 'Hot tub used past the 12:30 AM closing cutoff.', status: 'red' },
@@ -243,6 +528,15 @@
                 { icon: '🧹', name: 'Clean-Up Crew', note: 'Mattresses, sleeping bags, and personal gear left scattered in living room; chlorine bottle left out and not put away.', status: 'red' }
             ]
         };
+
+        const funnyDenialReasons = [
+            "Ruling: Backyard decibel sensors and neighbor telepathy confirmed elevated giggling past the legal curfew. Appeal dismissed.",
+            "Ruling: Video surveillance shows direct eye contact was made with the chlorine bottle before walking away from it. Grade firmly upheld.",
+            "Ruling: The Parental Board finds the defendant's defense 'creative but legally void'. Score stands as marked.",
+            "Ruling: Proposed bribe was deemed insufficient. Please submit freshly baked cookies or wash the car before filing future petitions.",
+            "Ruling: The tribunal deliberated for 4.2 seconds and unanimously decided Mom & Dad were 100% correct.",
+            "Ruling: Evidence presented was overridden by executive parental prerogative. Better luck next sleepover!"
+        ];
 
         function calculateScore(items) {
             let points = 0;
@@ -268,11 +562,14 @@
                         <strong>${item.name}</strong>
                         <p>${item.note}</p>
                     </div>
-                    <select class="rag-select rag-${item.status}" onchange="updateRAG('${person}', ${index}, this.value)">
-                        <option value="green" ${item.status === 'green' ? 'selected' : ''}>Green</option>
-                        <option value="amber" ${item.status === 'amber' ? 'selected' : ''}>Amber</option>
-                        <option value="red" ${item.status === 'red' ? 'selected' : ''}>Red</option>
-                    </select>
+                    <div class="category-actions">
+                        <select class="rag-select rag-${item.status}" onchange="updateRAG('${person}', ${index}, this.value)">
+                            <option value="green" ${item.status === 'green' ? 'selected' : ''}>Green</option>
+                            <option value="amber" ${item.status === 'amber' ? 'selected' : ''}>Amber</option>
+                            <option value="red" ${item.status === 'red' ? 'selected' : ''}>Red</option>
+                        </select>
+                        <button type="button" class="appeal-btn" title="Challenge this grade" onclick="openAppealModal('${person}', ${index})">⚖️ Appeal</button>
+                    </div>
                 `;
                 listContainer.appendChild(div);
             });
@@ -301,6 +598,103 @@
 
             document.getElementById('input-category').value = '';
             document.getElementById('input-note').value = '';
+        }
+
+        /* =========================================================================
+           APPEAL MODAL & FUNNY PROGRESS + JOKE DENIAL FLOW
+           ========================================================================= */
+        function openAppealModal(person, itemIndex) {
+            const item = initialData[person][itemIndex];
+            const capitalizedPerson = person.charAt(0).toUpperCase() + person.slice(1);
+            
+            document.getElementById('appeal-person').value = capitalizedPerson;
+            document.getElementById('appeal-category').value = item.name;
+            document.getElementById('modal-target-label').innerText = `${capitalizedPerson} • ${item.icon} ${item.name} (Current: ${item.status.toUpperCase()})`;
+
+            // Reset views
+            document.getElementById('modal-form-view').style.display = 'block';
+            document.getElementById('modal-assessing-view').style.display = 'none';
+            document.getElementById('modal-denied-view').style.display = 'none';
+            document.getElementById('appealForm').reset();
+
+            document.getElementById('appealModal').style.display = 'flex';
+        }
+
+        function closeAppealModal() {
+            document.getElementById('appealModal').style.display = 'none';
+        }
+
+        // Close when clicking background outside modal card
+        document.getElementById('appealModal').addEventListener('click', function(e) {
+            if (e.target === this) closeAppealModal();
+        });
+
+        async function handleAppealSubmit(e) {
+            e.preventDefault();
+
+            const person = document.getElementById('appeal-person').value;
+            const category = document.getElementById('appeal-category').value;
+            const name = document.getElementById('appeal-name').value;
+            const grade = document.getElementById('appeal-grade').value;
+            const reason = document.getElementById('appeal-reason').value;
+            const bribe = document.getElementById('appeal-bribe').value;
+
+            // 1. Secretly log submission to Google Form in the background
+            try {
+                const fullReason = (bribe && bribe !== 'None') 
+                    ? `[Bribe Offered: ${bribe}]\n${reason}` 
+                    : reason;
+
+                const formData = new FormData();
+                formData.append(GOOGLE_ENTRIES.person, person);
+                formData.append(GOOGLE_ENTRIES.category, category);
+                formData.append(GOOGLE_ENTRIES.name, name);
+                formData.append(GOOGLE_ENTRIES.grade, grade);
+                formData.append(GOOGLE_ENTRIES.reason, fullReason);
+                
+                fetch(GOOGLE_FORM_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                }).catch(err => console.warn('Google Form background log error:', err));
+            } catch (err) {
+                console.warn('Form submission error:', err);
+            }
+
+            // 2. Switch to the Funny Progress Bar Assessment View
+            document.getElementById('modal-form-view').style.display = 'none';
+            document.getElementById('modal-assessing-view').style.display = 'block';
+
+            const progressBar = document.getElementById('appeal-progress-bar');
+            const statusMsg = document.getElementById('appeal-status-msg');
+
+            const steps = [
+                { progress: '20%',  text: '📡 Transmitting appeal to Parental High Tribunal...' },
+                { progress: '45%',  text: '🔍 Scouring backyard decibel logs and pool camera footage...' },
+                { progress: '70%',  text: '☕ Consulting Parental Board of Disciplinary Standards...' },
+                { progress: '90%',  text: '⚖️ Weighing extenuating arguments & assessing snack bribes...' },
+                { progress: '100%', text: '🔨 Rendering final, immutable judgment...' }
+            ];
+
+            let currentStep = 0;
+            progressBar.style.width = '5%';
+
+            const interval = setInterval(() => {
+                if (currentStep < steps.length) {
+                    progressBar.style.width = steps[currentStep].progress;
+                    statusMsg.innerText = steps[currentStep].text;
+                    currentStep++;
+                } else {
+                    clearInterval(interval);
+                    // Reveal the Denied screen!
+                    setTimeout(() => {
+                        const randomReason = funnyDenialReasons[Math.floor(Math.random() * funnyDenialReasons.length)];
+                        document.getElementById('denial-reason-text').innerText = randomReason;
+                        document.getElementById('modal-assessing-view').style.display = 'none';
+                        document.getElementById('modal-denied-view').style.display = 'block';
+                    }, 600);
+                }
+            }, 800);
         }
 
         // Initial Render
